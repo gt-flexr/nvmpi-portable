@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+project(JetsonFFmpegPortable CXX)
+set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+set(CMAKE_C_FLAGS“$ {CMAKE_C_FLAGS} -fPIC”)
+set(CMAKE_CXX_FLAGS“$ {CMAKE_CXX_FLAGS} -fPIC”)
+
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+find_package(PkgConfig REQUIRED)
+
+# NVMPI_PORTABLE compile info
+set(NVMPI_PORTABLE_CXX_FLAGS "")
+set(NVMPI_PORTABLE_LINKER_FLAGS "")
+set(NVMPI_PORTABLE_LINKER_LIBS "")
+
+# Include cmake modules
+include_directories("include")
+include(cmake/ffmpeg.cmake)
+include(cmake/nvmpi.cmake)
+
+message(STATUS "[NVMPI_PORTABLE COMPILE INFO]")
+
+message("\t NVMPI_PORTABLE_CXX_FLAGS: ${NVMPI_PORTABLE_CXX_FLAGS}")
+message("\t NVMPI_PORTABLE_LINKER_FLAGS: ${NVMPI_PORTABLE_LINKER_FLAGS}")
+message("\t NVMPI_PORTABLE_LINKER_LIBS: ${NVMPI_PORTABLE_LINKER_LIBS}")
+
