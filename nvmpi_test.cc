@@ -1,6 +1,5 @@
-#include "opencv2/imgproc.hpp"
 #include <bits/stdc++.h>
-#include <flexr>
+#include <opencv4/opencv2/opencv.hpp>
 
 extern "C" {
 #include <nvmpi.h>
@@ -15,7 +14,6 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-  double st, et;
   int res = 0;
   int width=1920, height=1080;
   std::string codecName = "h264_nvmpi";
@@ -96,7 +94,7 @@ int main(int argc, char **argv)
 	}
 	if(!encoder)
   {
-    debug_print("encoder failed to create.");
+    printf("encoder failed to create.\n");
     exit(1);
   }
 
@@ -114,7 +112,6 @@ int main(int argc, char **argv)
                        encodingFrame->width, encodingFrame->height, 1);
 
 
-  st = getTsNow();
   cv::cvtColor(origFrame, yuvFrame, cv::COLOR_RGB2YUV_YV12);
   av_image_fill_arrays(encodingFrame->data, encodingFrame->linesize, yuvFrame.data,
                        static_cast<AVPixelFormat>(encodingFrame->format),
@@ -136,7 +133,7 @@ int main(int argc, char **argv)
   res = nvmpi_encoder_put_frame(encoder, &frame);
   if(res < 0)
   {
-    debug_print("nvmpi_encoder_put_frame error");
+    printf("nvmpi_encoder_put_frame error\n");
     exit(1);
   }
 
@@ -145,8 +142,7 @@ int main(int argc, char **argv)
     res = nvmpi_encoder_get_packet(encoder, &encodedPacket);
     if(res == 0) break;
   }
-  et = getTsNow();
-  debug_print("exe: %f, pktSize: %ld", et-st, encodedPacket.payload_size);
+  printf("pktSize: %ld\n", encodedPacket.payload_size);
 
   /* Encoder Close */
   nvmpi_encoder_close(encoder);
@@ -160,7 +156,7 @@ int main(int argc, char **argv)
 	}
 	if(!decoder)
   {
-    debug_print("decoder failed to create.");
+    printf("decoder failed to create.\n");
     exit(1);
   }
 
@@ -189,11 +185,10 @@ int main(int argc, char **argv)
   res = nvmpi_decoder_put_packet(decoder, &encodedPacket);
   res = nvmpi_decoder_put_packet(decoder, &encodedPacket);
   res = nvmpi_decoder_put_packet(decoder, &encodedPacket);
-  st = getTsNow();
   res = nvmpi_decoder_put_packet(decoder, &encodedPacket);
   if(res < 0)
   {
-    debug_print("nvmpi_decoder_put_packet error");
+    printf("nvmpi_decoder_put_packet error\n");
     exit(1);
   }
 
@@ -201,7 +196,6 @@ int main(int argc, char **argv)
   {
     res = nvmpi_decoder_get_frame(decoder, &decNvFrame, true);
     if(res == 0) break;
-    //else printf("%d \n", res);
   }
 
 	linesize[0]=decNvFrame.linesize[0];
@@ -212,8 +206,6 @@ int main(int argc, char **argv)
 	    linesize, static_cast<AVPixelFormat>(AV_PIX_FMT_YUV420P), decNvFrame.width, decNvFrame.height, 1);
 
   cv::cvtColor(yuvFrameDec, finalFrame, cv::COLOR_YUV420p2RGB);
-  et = getTsNow();
-  debug_print("exe: %f", et-st);
   cv::imshow("test", finalFrame);
   cv::waitKey(0);
 
