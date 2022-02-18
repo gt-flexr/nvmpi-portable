@@ -33,6 +33,6 @@ So, it can be easily usable as a library and integratble to other projects; I wr
 :). You can compare the compelxities between `nvmpi_test.cc` and `portable_test.cc`.
 
 
-## Credit
-nvmpi-portable is inspired by [jetson-ffmpeg](https://github.com/jocover/jetson-ffmpeg) and I refer it.
-
+## Credit & References
+  - nvmpi-portable is inspired by [jetson-ffmpeg](https://github.com/jocover/jetson-ffmpeg) and I refer it.
+  - L4T API: https://docs.nvidia.com/jetson/l4t-multimedia/index.html
