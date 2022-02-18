@@ -36,8 +36,9 @@ add_library(nvmpi_portable_static STATIC
 
 set_target_properties(nvmpi_portable_static PROPERTIES OUTPUT_NAME nvmpi_portable)
 set_target_properties(nvmpi_portable nvmpi_portable_static PROPERTIES PUBLIC_HEADER nvmpi_portable.h)
-target_include_directories(nvmpi_portable PRIVATE NVMPI_PORTABLE_CXX_FLAGS)
-target_include_directories(nvmpi_portable_static PRIVATE NVMPI_PORTABLE_CXX_FLAGS)
+target_link_libraries(nvmpi_portable PRIVATE ${NVMPI_PORTABLE_LINKER_FLAGS})
+target_include_directories(nvmpi_portable PRIVATE ${NVMPI_PORTABLE_CXX_FLAGS})
+target_include_directories(nvmpi_portable_static PRIVATE ${NVMPI_PORTABLE_CXX_FLAGS})
 configure_file(nvmpi_portable.pc.in nvmpi_portable.pc @ONLY)
 install(TARGETS nvmpi_portable nvmpi_portable_static
 	    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
