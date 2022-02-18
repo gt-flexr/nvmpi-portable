@@ -26,8 +26,8 @@ It's for HW-accelerated encoding/decoding at the code level and each frame granu
 [jetson-ffmpeg](https://github.com/jocover/jetson-ffmpeg) is easily usable with ffmpeg, but there are some glitches
 using it with libavcodec. It seems because of the discrepancies between libavcodec contexts and jetson-ffmpeg. So,
 instead of using nvmpi via libavcodec interfaces, nvmpi-portable directly use nvmpi for encoding/decoding.
-nvmpi-portable has discrepancies of nvmpi, ffmpeg, and opencv4 because nvmpi-portable delegates the image/video-related
-compelxities to them. Moreover, it is opencv compatible.
+nvmpi-portable has dependencies of nvmpi, ffmpeg, and opencv4 because nvmpi-portable delegates the image/video-related
+compelxities to them. Moreover, it is opencv compatible for better usability.
 
 So, it can be easily usable as a library and integratble to other projects; I wrote this to use for my research project
 :). You can compare the compelxities between `nvmpi_test.cc` and `portable_test.cc`.
