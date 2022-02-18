@@ -142,3 +142,14 @@ nvPacket nvpEncodeYuvFrame(nvmpictx *encoder, cv::Mat yuvFrame, int rgbWidth, in
   return nvEncPkt;
 }
 
+
+nvPacket* nvpEncodeYuvFrameToBuf(nvmpictx *encoder, cv::Mat yuvFrame, int rgbWidth, int rgbHeight)
+{
+  nvPacket pkt = nvpEncodeYuvFrame(encoder, yuvFrame, rgbWidth, rgbHeight);
+  nvPacket *retPkt = new nvPacket;
+  *retPkt = pkt;
+  retPkt->payload = new uint8_t[pkt.payload_size];
+  memcpy(retPkt->payload, pkt.payload, pkt.payload_size);
+  return retPkt;
+}
+

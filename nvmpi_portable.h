@@ -16,7 +16,8 @@ extern "C" {
 /************** Encoder ************/
 nvmpictx* nvpInitEncoder(nvCodingType enc, int width, int height, int bitrate, int vbr, int idrInterval, int iInterval, int fps, int profile, int logLevel, int hwPreset, int capturePkt, int qMin, int qMax, int bFrames, int refs, bool lossless);
 void nvpCloseEncoder(nvmpictx *encoder);
-nvPacket nvpEncodeYuvFrame(nvmpictx *encoder, cv::Mat yuvFrame, int rgbWidth, int rgbHeight);
+nvPacket  nvpEncodeYuvFrame(nvmpictx *encoder, cv::Mat yuvFrame, int rgbWidth, int rgbHeight);
+nvPacket* nvpEncodeYuvFrameToBuf(nvmpictx *encoder, cv::Mat yuvFrame, int rgbWidth, int rgbHeight);
 
 
 /************** Decoder ************/
