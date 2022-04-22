@@ -32,6 +32,8 @@ int main(int argc, char **argv)
       cv::imshow("test", finalFrame);
       cv::waitKey(0);
     }
+
+    delete pkt.payload;
   }
 
   nvpCloseEncoder(encoder);

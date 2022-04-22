@@ -7,6 +7,6 @@ Name: @PROJECT_NAME@
 Description: @PROJECT_DESCRIPTION@
 Version: @PROJECT_VERSION@
 
-Requires:
+Requires: libavcodec libavformat libavutil opencv4 nvmpi
 Libs: -L${libdir} -lnvmpi_portable
 Cflags: -I${includedir} 
