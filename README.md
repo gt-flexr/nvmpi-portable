@@ -1,6 +1,6 @@
 # nvmpi-portable
 
-L4T Multimedia API with ffmpeg, jetson-ffmpeg, and opencv4.
+L4T (Linux for Tegra) Multimedia API with ffmpeg, jetson-ffmpeg, and opencv4. This is a lightweight portable API for hardware-accelerated encoding/decoding on NVIDIA Jetson.
 
 ## Installation
 1. Dependencies
